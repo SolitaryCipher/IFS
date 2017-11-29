@@ -178,6 +178,25 @@
             "fileArgs": "-f",
             "hidden": true,
             "options" : []
+        },
+				{
+            "displayName": "Approrimate Essay Score",
+            "description": "Attempts to score an essay using _machine learning_",
+            "technicalDesc": "A python script using a Recurrent Neural Network model. ",
+            "author": "Nick",
+            "copyright": "Copyright © 2017",
+            "license": "ISC License",
+            "licenseFile": "./tools/langaugeTools/spell_check/LICENSE.txt",
+            "progName": "./tools/languageTools/essay_score/essay_score.py",
+            "cmdToolName": "essay_score.py",
+            "route": "",
+            "runType": "writing",
+            "filesAllowed": "singleFile",
+            "parseCmd": "",
+            "defaultArg": "-j",
+            "fileArgs": "-f",
+            "hidden": true,
+            "options" : []
         }
     ]
 }

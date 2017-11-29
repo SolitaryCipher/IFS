@@ -12,6 +12,9 @@ import tensorflow as tf
 
 
 WORD2VEC_FILE="models/word2vec.model"
+WORD2VEC_FILE="/media/DATA/docs/fall2017/4780-ai/project/IFS/ifs/tools/languageTools/essay_score/models/word2vec.model"
+MODEL_FILE="/media/DATA/docs/fall2017/4780-ai/project/IFS/ifs/tools/languageTools/essay_score/models/current_rnn_model"
+
 
 parser = OptionParser()
 parser.add_option('-f', '--file', dest='filename', 
@@ -19,7 +22,7 @@ parser.add_option('-f', '--file', dest='filename',
 parser.add_option('-j', '--json', dest='json', action='store_true',
                   help='Use IFS-compatible output')
 parser.add_option('-m', '--model', dest='model', metavar="MODEL",
-                  default="models/current_rnn_model",
+                  default=MODEL_FILE,
                   help='Specify Neural Network Model')
 parser.add_option('-w', '--word2vec', dest='word_model', metavar="MODEL",
                   default=WORD2VEC_FILE,
@@ -181,14 +184,14 @@ def build_json(filename, score):
     "feedback": [],
     "feedbackStats": [
       {
-        "type": "stat",
-        "toolName": "essay_score",
-        "name": "essayScoreStat",
-        "level": "basic",
         "category": "score",
         "filename": "%s",
+        "level": "basic",
+        "name": "essayScore",
         "statName": "Estimated Essay Score",
-        "statValue": %d
+        "statValue": "%d",
+        "toolName": "essayscore",
+        "type": "stat"
       }
     ]
 }""" % (filename, int(score*100))
@@ -225,6 +228,7 @@ def main():
     if options.filename is not None:
         file = open(options.filename, "r")
     else:
+        exit(-1)
         print "Reading from stdin. Press ^D to stop."
 
     if file is None:
@@ -237,11 +241,12 @@ def main():
 
     word_model = load_word2vec(options.word_model);
     essay_vectors = map(get_feature_from(word_model), str)
-
     score = run_rnn(essay_vectors)
+    #score = 0.90
 
     outfunc = build_json if options.json else build_output
-    print(outfunc(options.filename, score))
+    outfunc = build_json
+    print(outfunc(options.filename.split('/')[-1], score))
 
     return 0
 
