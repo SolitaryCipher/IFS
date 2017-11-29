@@ -74,7 +74,7 @@ app.controller( "feedbackCtrl", function($scope, $http, $sce) {
     $scope.inDisplayStats = function(feedbackItem) {
         var result = [];
         if( feedbackItem ) {
-            var displayStats = [ 'chCount','wordCount','nSens', 'avgWrdPerSen', 'nPar',
+            var displayStats = [ 'chCount','wordCount','nSens', 'avgWrdPerSen', 'nPar', "essayScore",
                                 'avgSenPerPar', 'correctWordCount', 'misspelledWordCount'];
 
             angular.forEach(displayStats, function(value){
