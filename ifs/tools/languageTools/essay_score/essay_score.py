@@ -32,7 +32,7 @@ parser.add_option('-w', '--word2vec', dest='word_model', metavar="MODEL",
 
 model      = options.model
 
-## start train.py code (RNN + model )
+## start train.py code (RNN + model). Based on code by Dr. Graham Taylor and Jan Rudy
 # params from FLAGS (but formated to be variables)
 g_n_out = 1
 g_n_in = 50
@@ -155,7 +155,7 @@ class RNN(object):
         return params
 ## end of train.py code (RNN)
 
-## start of preprocess.py code 
+## start of preprocess.py code. Code by Dr. Graham Taylor and Jan Rudy
 def make_list(raw_documents):
     vectorizer = CountVectorizer(stop_words=None)
     analyze = vectorizer.build_analyzer()
@@ -175,9 +175,6 @@ def get_feature_from(model):
     return get_feature
 
 ## end of preprocess.py code
-
-def run_rnn(str):
-    return 0.75
 
 def build_json(filename, score):
     return """{
@@ -245,7 +242,6 @@ def main():
     #score = 0.90
 
     outfunc = build_json if options.json else build_output
-    outfunc = build_json
     print(outfunc(options.filename.split('/')[-1], score))
 
     return 0
